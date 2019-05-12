@@ -16,16 +16,6 @@ kind: Deployment
 metadata:
   name: nginx
 spec:
-  volumes:
-    - name: nginx-files
-      emptyDir: {}          
-  initContainers:
-    - name: nginx-github-clone
-      image: alpine/git
-      command: ['clone', 'https://github.com/gbaeke/static-web.git', '/usr/share/nginx/html']
-      volumeMounts:
-      - name: nginx-files
-        mountPath: /usr/share/nginx/html
   replicas: 3
   selector:
     matchLabels:
@@ -35,6 +25,13 @@ spec:
       labels:
         app: nginx
     spec:
+      initContainers:
+        - name: nginx-github-clone
+          image: alpine/git
+          command: ['clone', 'https://github.com/gbaeke/static-web.git', '/usr/share/nginx/html']
+          volumeMounts:
+          - name: nginx-files
+            mountPath: /usr/share/nginx/html
       containers:
       - name: nginx
         image: nginx:1.15.2
@@ -50,3 +47,6 @@ spec:
           limits:
             cpu: 500m
             memory: 256Mi
+      volumes:
+        - name: nginx-files
+          emptyDir: {}
