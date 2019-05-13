@@ -38,6 +38,6 @@ spec:
             cpu: 1000m
             memory: 512Mi
       volumes:
-        - name: azurevolume
+        - name: azure-volume
           persistentVolumeClaim:
             claimName: azure-disk
