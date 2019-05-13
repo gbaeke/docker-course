@@ -27,6 +27,7 @@ spec:
       containers:
       - name: ubuntu
         image: ubuntu
+        command: ["/bin/bash", "-ec", "while :; do echo '.'; sleep 5 ; done"]
         volumeMounts:
         - mountPath: "/mnt/azure"
           name: azure-volume
