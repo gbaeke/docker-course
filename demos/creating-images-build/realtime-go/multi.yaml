@@ -1,0 +1,35 @@
+apiVersion: 2018-10-01
+location: westeurope
+name: realtime-app
+properties:
+  containers:
+  - name: realtime-service
+    properties:
+      image: gbaeke/realtime-course
+      resources:
+        requests:
+          cpu: 0.1
+          memoryInGb: 0.2
+      ports:
+      - port: 8080
+  - name: realtime-redis
+    properties:
+      image: library/redis
+      resources:
+        requests:
+          cpu: 0.2
+          memoryInGb: 0.3
+      ports:
+      - port: 6379
+  osType: Linux
+  ipAddress:
+    type: Public
+    dnsNameLabel: realtime-go-app-geba
+    ports:
+    - protocol: tcp
+      port: '8080'
+    - protocol: tcp
+      port: '6379'
+  restartPolicy: Always
+tags: null
+type: Microsoft.ContainerInstance/containerGroups

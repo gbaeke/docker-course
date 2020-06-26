@@ -1,0 +1,12 @@
+version: '2.0'
+services:
+  redis:
+    image: redis
+  rtdemo:
+    image: gbaeke/rtdemo:1.0.0
+    depends_on: 
+      - redis
+    environment:
+      - REDISHOST=redis:6379    
+    ports:
+      - "8080:8080"
